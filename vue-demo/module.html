@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件</title>
+</head>
+<body >
+<div id="app">
+    <shanshuan></shanshuan>
+    <shanshuan></shanshuan>
+    <prr></prr>
+    <prr :zdy="msg"></prr>
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+        //定义全局组件
+       Vue.component("shanshuan",{
+          template:"<button  @click='count++'>全局<span v-text='count'></span>次了</button>",
+           data(){
+              return {
+                  count:0,
+               }
+           }
+       });
+        //定义局部组件
+        const wzf={
+            template:"<button  @click='count++'>{{zdy}}局部<span v-text='count'></span>次了</button>",
+            data(){
+                return {
+                    count:0,
+                }
+            },
+            // props:["zdy"]
+            props:{
+                zdy:{
+                }
+            }
+        }
+       const  app=new Vue({
+           el:"#app",
+           data:{
+               msg:"大家好 我是渣渣辉！"
+           },
+           components:{
+               prr:wzf,
+           }
+
+       });
+</script>
+</body>
+</html>

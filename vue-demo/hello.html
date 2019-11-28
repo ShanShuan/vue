@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<input lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+       xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+       xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+       xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+       xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>vue基本语法 </title>
+</head>
+<div id="xx">
+    <button @click="handleClick" >点我</button>
+    <input v-model="num"><button @click="num++">+</button>
+    <h1>
+        <span v-text="name"></span>非常帅! {{num}}几位赞同
+    </h1>
+    <span v-html="name"></span>
+    <input type="checkbox" value="java" v-model="classList"/>java<br/>
+    <input type="checkbox" value="python" v-model="classList"/>python<br/>
+    <input type="checkbox" value="c++"  v-model="classList"/>c++<br/>
+    <h1>您已选择 {{classList.join(";")}}</h1>
+    <div style="width: 100px ; height: 100px;background-color: aquamarine" @click="sayhaha('div')" >
+        哈哈<button @click.stop="sayhaha('btn')"></button>
+        <a href="http://localhost:9071" @click.prevent.stop="sayhaha('a')"> 本地项目</a>
+    </div>
+<!--    v-for-->
+    <ul>
+        <li v-for="(user, i ) in users">
+            名字:<span v-text="user.name"></span>
+            年龄<span v-text="user.age"></span>
+                <span v-text="i"></span>
+        </li>
+        <li v-for="user in users[0]">
+            <span v-text="user"></span>
+        </li>
+        <li v-for="i in 5" >
+            <span v-text="i" v-if="i%2==0"></span>
+            <span  v-else>奇数不显示</span>
+        </li>
+    </ul>
+
+<!--    v-if-->
+    <button @click="show=!show">变魔术</button>
+    <span v-if="show">您好!</span>
+    <span v-show="show">您很好!</span>
+
+
+<!--    v-bind-->
+    <br/>
+        <button @click="color='blue'">蓝色</button>
+        <button @click="color='red'">红色</button>
+        <div style="width: 200px;height: 200px" v-bind:class="color"></div>
+    <h1>
+        您的生日：{{birth}}
+    </h1>
+
+<!--    watch-->
+    <input v-model="doSomeThings">
+    <input v-model="person.name">
+</div>
+
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<style type="text/css">
+    .red{
+        background-color: red;
+    }
+    .blue{
+        background-color: blue;
+    }
+</style>
+<script>
+    const app=new Vue({
+        el:"#xx",
+        data:{
+            name:"<font color='red'> 急啊急啊</font>",
+            num: 2,
+            classList:[],
+            users:[
+                {name:"shanshuan",age:27},
+                {name:"ruirui",age:27},
+                {name:"zixuan",age:27},
+                {name:"big",age:27},
+                {name:"jiasheng",age:27},
+                {name:"yaotian",age:27}
+            ],
+            show:true,
+            color:"red",
+            birthday:1529032123201,
+            doSomeThings:"doing",
+            person:{
+                name:"shanshuan",
+                age:27
+            }
+        },
+        methods:{
+            handleClick(){
+                console.log("1111");
+            },
+            sayhaha(msg){
+                console.log(msg);
+            }
+        },
+        computed:{
+            birth(){
+                console.log("computed");
+                const day=new Date(this.birthday);
+                return day.getFullYear()+"年"+day.getMonth()+"月"+day.getDay()+"日";
+            }
+        },
+        created(){
+            setTimeout(()=>this.name="哈哈",4000)
+
+        },
+        watch:{
+            doSomeThings(arg1,arg2){
+                alert(arg1+"  哈哈 傻瓜"+arg2);
+            },
+            person:{
+                deep:true,
+                handler(val){
+                    alert(val.name);
+                }
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

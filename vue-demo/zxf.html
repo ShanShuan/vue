@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件</title>
+</head>
+<body >
+<div id="app">
+    <wzf :zdy="count" @incre="countadd" @dcre="countreduce"></wzf>
+
+</div>
+
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+
+        const wzf={
+            template:`<div>
+    <button @click="handleAdd">+</button>
+    <button @click="handleReduce">-</button>
+    <span v-text="zdy"></span>
+    </div>`,
+            // props:["zdy"]
+            props:{
+                zdy:{
+                }
+            },
+            methods: {
+                handleAdd(){
+                    this.$emit('incre');
+                },
+                handleReduce(){
+                    this.$emit('dcre');
+                }
+            }
+        }
+       const  app=new Vue({
+           el:"#app",
+           data:{
+               msg:"大家好 我是渣渣辉！",
+               count:1
+           },
+           components:{
+               wzf,
+           },
+           methods:{
+               countadd(){
+                   this.count++;
+               },
+               countreduce(){
+                   this.count--;
+               }
+           }
+
+
+       });
+</script>
+</body>
+</html>
